@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghost Matrix</title>
+<meta name="description" content="Ghost Matrix by Luxa Grid LLC - the pocket security gateway that protects every device you connect.">
+<style>
+  :root { --bg:#030603; --panel:#0a140c; --line:#1b4a24; --neon:#39ff14; --text:#e6ffe0; --dim:#8fbf8a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif; line-height:1.5; }
+  main { max-width:880px; margin:0 auto; padding:24px 16px 48px; text-align:center; }
+  img.logo { width:100%; max-width:760px; height:auto; display:block; margin:0 auto;
+             -webkit-mask-image:radial-gradient(ellipse 60% 62% at 50% 48%, #000 62%, transparent 100%);
+                     mask-image:radial-gradient(ellipse 60% 62% at 50% 48%, #000 62%, transparent 100%); }
+  .tag { color:var(--neon); letter-spacing:.35em; font-weight:600; font-size:clamp(13px,2.4vw,17px); margin:18px 0 6px; }
+  p.lead { color:var(--text); font-size:clamp(16px,2.6vw,19px); margin:8px auto 26px; max-width:620px; }
+  a.btn { display:inline-block; padding:14px 26px; border:2px solid var(--neon); color:var(--neon);
+          text-decoration:none; font-weight:600; letter-spacing:.08em; background:var(--panel);
+          clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); }
+  a.btn:hover, a.btn:focus-visible { background:#0e2a12; outline:none; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin:36px 0 8px; text-align:left; }
+  .card { background:var(--panel); border:1px solid var(--line); padding:14px 16px;
+          clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); }
+  .card b { color:var(--neon); display:block; font-weight:600; }
+  .card span { color:var(--dim); font-size:14px; }
+  footer { color:var(--dim); font-size:13px; margin-top:36px; letter-spacing:.2em; }
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="ghost_matrix_logo.jpg" alt="Ghost Matrix logo" width="1200" height="675">
+  <div class="tag">YOUR NETWORK. YOUR RULES.</div>
+  <p class="lead">The pocket security gateway that protects every device you connect, at home, in hotels, cafes and airports.</p>
+  <a class="btn" href="Ghost_Matrix_Brochure.pdf">DOWNLOAD THE BROCHURE (PDF)</a>
+  <div class="grid">
+    <div class="card"><b>Ads, trackers &amp; malware blocked</b><span>For every device, no apps needed.</span></div>
+    <div class="card"><b>Hidden on public Wi-Fi</b><span>Others on the network can't see your devices.</span></div>
+    <div class="card"><b>Fake hotspot warning</b><span>Pauses and asks when a Wi-Fi looks wrong.</span></div>
+    <div class="card"><b>Also a watch</b><span>Time, date and live speeds.</span></div>
+  </div>
+  <footer>CREATED BY LUXA GRID LLC</footer>
+</main>
+</body>
+</html>
