@@ -4,45 +4,211 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ghost Matrix</title>
-<meta name="description" content="Ghost Matrix by Luxa Grid LLC - the pocket security gateway that protects every device you connect.">
+<meta name="description" content="Ghost Matrix by Luxa Grid LLC - the security gateway you wear. Protects every device you connect on any Wi-Fi, with nothing to install.">
 <style>
-  :root { --bg:#030603; --panel:#0a140c; --line:#1b4a24; --neon:#39ff14; --text:#e6ffe0; --dim:#8fbf8a; }
+  :root { --bg:#030603; --panel:#0a140c; --panel2:#0e2a12; --line:#1b4a24; --neon:#39ff14; --text:#e6ffe0; --dim:#8fbf8a; --warn:#ffc400; }
   * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
   body { margin:0; background:var(--bg); color:var(--text);
          font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif; line-height:1.5; }
-  main { max-width:880px; margin:0 auto; padding:24px 16px 48px; text-align:center; }
+  main { max-width:960px; margin:0 auto; padding:24px 16px 48px; }
+  section { margin:72px 0 0; }
+  .center { text-align:center; }
   img.logo { width:100%; max-width:760px; height:auto; display:block; margin:0 auto;
              -webkit-mask-image:radial-gradient(ellipse 60% 62% at 50% 48%, #000 62%, transparent 100%);
                      mask-image:radial-gradient(ellipse 60% 62% at 50% 48%, #000 62%, transparent 100%); }
-  .tag { color:var(--neon); letter-spacing:.35em; font-weight:600; font-size:clamp(13px,2.4vw,17px); margin:18px 0 6px; }
-  p.lead { color:var(--text); font-size:clamp(16px,2.6vw,19px); margin:8px auto 26px; max-width:620px; }
+  .tag, .kicker { color:var(--neon); letter-spacing:.35em; font-weight:600; font-size:clamp(12px,2.4vw,15px); margin:18px 0 6px; text-transform:uppercase; }
+  h1, h2 { font-weight:600; letter-spacing:-.01em; margin:6px 0 12px; line-height:1.15; }
+  h1 { font-size:clamp(28px,5.4vw,46px); }
+  h2 { font-size:clamp(24px,4.4vw,36px); }
+  h2 em, h1 em { font-style:normal; color:var(--neon); }
+  p.lead { font-size:clamp(16px,2.6vw,19px); margin:8px auto 26px; max-width:640px; }
+  p.sub { color:var(--dim); font-size:clamp(15px,2.2vw,17px); max-width:680px; margin:0 auto; }
+  .ctas { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
   a.btn { display:inline-block; padding:14px 26px; border:2px solid var(--neon); color:var(--neon);
           text-decoration:none; font-weight:600; letter-spacing:.08em; background:var(--panel);
           clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); }
-  a.btn:hover, a.btn:focus-visible { background:#0e2a12; outline:none; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin:36px 0 8px; text-align:left; }
-  .card { background:var(--panel); border:1px solid var(--line); padding:14px 16px;
-          clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); }
-  .card b { color:var(--neon); display:block; font-weight:600; }
-  .card span { color:var(--dim); font-size:14px; }
-  footer { color:var(--dim); font-size:13px; margin-top:36px; letter-spacing:.2em; }
+  a.btn.ghost { border-color:var(--line); color:var(--text); }
+  a.btn:hover, a.btn:focus-visible { background:var(--panel2); outline:none; }
+  .cut { clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); }
+
+  /* problem */
+  .problem { background:var(--panel); border:1px solid var(--line); padding:28px 24px; text-align:center; }
+  .problem p { max-width:660px; margin:10px auto 0; color:var(--dim); }
+
+  /* reasons */
+  .reasons { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:28px; }
+  .reason { background:var(--panel); border:1px solid var(--line); padding:20px 20px 18px; }
+  .reason svg { width:30px; height:30px; stroke:var(--neon); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .reason h3 { margin:10px 0 6px; font-size:18px; font-weight:600; color:var(--neon); }
+  .reason p { margin:0; color:var(--dim); font-size:15px; }
+
+  /* screens */
+  .screens { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:28px; align-items:end; }
+  .screens figure { margin:0; text-align:center; }
+  .screens img { width:100%; height:auto; display:block; }
+  .screens figcaption { color:var(--dim); font-size:14px; margin-top:4px; }
+  @media (max-width:560px) { .screens { grid-template-columns:1fr 1fr; } .screens figure:last-child { grid-column:1 / -1; max-width:60%; margin:0 auto; } }
+
+  /* comparison */
+  .tablewrap { overflow-x:auto; margin-top:24px; border:1px solid var(--line); }
+  table { width:100%; border-collapse:collapse; min-width:520px; font-size:15px; }
+  th, td { padding:12px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+  thead th { font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); font-weight:600; background:var(--panel); }
+  thead th.us { color:var(--neon); }
+  td.us { background:var(--panel2); color:var(--text); }
+  td { color:var(--dim); }
+  tbody tr:last-child td { border-bottom:0; }
+  .y { color:var(--neon); font-weight:700; }
+  .n { color:#6b8a68; font-weight:700; }
+  .note { color:var(--dim); font-size:13px; margin-top:10px; }
+
+  /* straight talk */
+  .straight { border:1px solid var(--warn); background:#141004; padding:22px 22px; }
+  .straight .kicker { color:var(--warn); margin-top:0; }
+  .straight p { margin:6px 0 0; color:var(--text); }
+  .straight ul { margin:10px 0 0; padding-left:20px; color:var(--dim); }
+  .straight li { margin:4px 0; }
+
+  .final { background:var(--panel); border:1px solid var(--neon); padding:34px 22px; text-align:center; }
+  footer { color:var(--dim); font-size:13px; margin-top:48px; letter-spacing:.2em; text-align:center; }
+  footer a { color:var(--neon); }
 </style>
 </head>
 <body>
 <main>
-  <img class="logo" src="ghost_matrix_logo.jpg" alt="Ghost Matrix logo" width="1200" height="675">
-  <div class="tag">YOUR NETWORK. YOUR RULES.</div>
-  <p class="lead">The pocket security gateway that protects every device you connect, at home, in hotels, cafes and airports.</p>
-  <a class="btn" href="Ghost_Matrix_Brochure.pdf">DOWNLOAD THE BROCHURE (PDF)</a>
-  <div class="grid">
-    <div class="card"><b>Ads, trackers &amp; malware blocked</b><span>For every device, no apps needed.</span></div>
-    <div class="card"><b>Hidden on public Wi-Fi</b><span>Others on the network can't see your devices.</span></div>
-    <div class="card"><b>Fake hotspot warning</b><span>Pauses and asks when a Wi-Fi looks wrong.</span></div>
-    <div class="card"><b>Also a watch</b><span>Time, date and live speeds.</span></div>
-  </div>
+  <header class="center">
+    <img class="logo" src="ghost_matrix_logo.jpg" alt="Ghost Matrix logo" width="1200" height="675">
+    <div class="tag">Your network. Your rules.</div>
+    <p class="lead">The security gateway you wear. It protects every device you connect, at home, in hotels, cafes and airports, with nothing to install.</p>
+    <div class="ctas">
+      <a class="btn" href="Ghost_Matrix_Brochure.pdf">DOWNLOAD THE BROCHURE (PDF)</a>
+      <a class="btn ghost" href="#why">WHY GHOST MATRIX</a>
+    </div>
+  </header>
+
+  <section class="problem cut">
+    <div class="kicker">The problem</div>
+    <h2>Public Wi-Fi is a room full of <em>strangers</em>.</h2>
+    <p>Hotel, cafe and airport Wi-Fi puts your laptop, phone and tablet on the same network as everyone else.
+       Some of those networks are fakes set up to look real. And your TV stick, game console and e-reader
+       can't run a security app at all.</p>
+  </section>
+
+  <section id="why">
+    <div class="center">
+      <div class="kicker">Why Ghost Matrix</div>
+      <h2>Every device protected.<br><em>Nothing to install.</em> On your wrist.</h2>
+      <p class="sub">Ghost Matrix joins the Wi-Fi you're on and gives your devices their own private, filtered Wi-Fi.
+         Your devices connect to it, and it does the protecting.</p>
+    </div>
+
+    <div class="reasons">
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="13" height="9" rx="1"/><path d="M6 17h5M8.5 13v4"/><rect x="17" y="6" width="5" height="11" rx="1"/></svg>
+        <h3>Protects what apps can't</h3>
+        <p>Laptops, tablets, TV sticks, game consoles, e-readers. If it joins Wi-Fi, it's covered, with no app on any of them.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <h3>Set up in about 2 minutes</h3>
+        <p>A guided setup on the watch itself. No admin page, no account, no router settings. Each step waits until it really works.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><path d="M12 19.5h.01"/><path d="M3 3l18 18"/></svg>
+        <h3>Spots fake hotspots</h3>
+        <p>If a Wi-Fi starts impersonating the router or drops its security, Ghost Matrix pauses your internet and asks before anything else goes out.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <h3>Your lookups stay private</h3>
+        <p>Every website lookup is encrypted to Quad9, which also blocks known malware and phishing sites. The cafe's Wi-Fi can't read where you're going.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7c2.2 0 4 .8 5.5 1.8M22 12s-3.5 7-10 7c-2.2 0-4-.8-5.5-1.8"/><path d="M3 3l18 18"/></svg>
+        <h3>Invisible on shared Wi-Fi</h3>
+        <p>Your devices sit behind Ghost Matrix's own firewall, so others on the hotel network can't see or reach them. It even uses its own address on every network.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+        <h3>Fails closed, never open</h3>
+        <p>The firewall tests itself at every start. If protection can't be verified, Ghost Matrix shuts its Wi-Fi instead of letting traffic through unprotected.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.6-8A6 6 0 0 1 18 9a3.5 3.5 0 0 1 .5 7"/><path d="M3 3l18 18"/></svg>
+        <h3>No cloud. No account.</h3>
+        <p>Nothing to sign up for, and no dashboard in someone else's cloud. It talks to four named services only, and we tell you which ones.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>
+        <h3>Updates you can trust</h3>
+        <p>New versions arrive over Wi-Fi, signed by Luxa Grid and checked before they install. If one ever fails its checks, it rolls back by itself.</p>
+      </div>
+      <div class="reason cut">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M9 6V2h6v4M9 18v4h6v-4M12 10v2.5l1.5 1"/></svg>
+        <h3>Always on you</h3>
+        <p>It's a watch: time, date and live speeds at a glance. Nothing to pack, plug in, or leave behind in a hotel room.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="center">
+      <div class="kicker">On the device</div>
+      <h2>Everything happens <em>on your wrist</em>.</h2>
+    </div>
+    <div class="screens">
+      <figure><img src="img/screen_home.png" width="460" height="538" loading="lazy" alt="Home screen: PROTECTED, 2 clients, live speeds, 5 blocked"><figcaption>See what's protected and blocked, live</figcaption></figure>
+      <figure><img src="img/screen_setup_check.png" width="460" height="538" loading="lazy" alt="Setup check: online, protection on, phone connected, phone online"><figcaption>Setup checks that it really works</figcaption></figure>
+      <figure><img src="img/screen_watch.png" width="460" height="538" loading="lazy" alt="Digital watch face with time, date and speeds"><figcaption>And it's a watch</figcaption></figure>
+    </div>
+    <p class="note center">Screens shown with sample data.</p>
+  </section>
+
+  <section>
+    <div class="center">
+      <div class="kicker">How it compares</div>
+      <h2>A different kind of <em>protection</em>.</h2>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th class="us">Ghost Matrix</th><th>Travel router</th><th>VPN app</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Covers TVs, consoles and other devices without apps</th><td class="us"><span class="y">Yes</span></td><td><span class="y">Yes</span></td><td><span class="n">No</span>, only devices with the app</td></tr>
+          <tr><th scope="row">Nothing to install, no account</th><td class="us"><span class="y">Yes</span></td><td>Admin login and web settings</td><td>App and account on each device</td></tr>
+          <tr><th scope="row">Guided setup on its own screen</th><td class="us"><span class="y">Yes</span>, about 2 minutes</td><td>Usually a web page</td><td>In the app</td></tr>
+          <tr><th scope="row">Blocks ads, trackers and malware sites</th><td class="us"><span class="y">Yes</span>, on by default</td><td>Often available, needs setting up</td><td>Some do</td></tr>
+          <tr><th scope="row">Worn on your wrist</th><td class="us"><span class="y">Yes</span></td><td><span class="n">No</span></td><td>On your phone</td></tr>
+          <tr><th scope="row">Encrypted tunnel for all traffic (VPN)</th><td class="us"><span class="n">No</span>, see below</td><td>Many models</td><td><span class="y">Yes</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">General comparison of product types. Individual models differ.</p>
+  </section>
+
+  <section class="straight cut">
+    <div class="kicker">Straight talk</div>
+    <p><b>We'd rather tell you now than have you find out later.</b></p>
+    <ul>
+      <li>Ghost Matrix is <b>not a VPN</b> and does not make you anonymous. It filters, firewalls and hides your devices; it doesn't tunnel your traffic.</li>
+      <li>It uses <b>2.4 GHz Wi-Fi</b>, which works almost everywhere but isn't the fastest band.</li>
+      <li>We don't claim features until they're built and tested. When something new arrives, it comes as a signed update.</li>
+    </ul>
+  </section>
+
+  <section class="final cut">
+    <div class="kicker">Ghost Matrix</div>
+    <h2>Your network. <em>Your rules.</em></h2>
+    <p class="sub">Protection for every device you carry, on every Wi-Fi you join.</p>
+    <div class="ctas" style="margin-top:22px">
+      <a class="btn" href="Ghost_Matrix_Brochure.pdf">DOWNLOAD THE BROCHURE</a>
+      <a class="btn ghost" href="mailto:luxagrid@yahoo.com">CONTACT US</a>
+    </div>
+  </section>
+
   <footer>CREATED BY LUXA GRID LLC<br>
-    <a href="terms.html" style="color:var(--neon)">Terms &amp; conditions</a> &middot;
-    <a href="mailto:luxagrid@yahoo.com" style="color:var(--neon)">luxagrid@yahoo.com</a></footer>
+    <a href="terms.html">Terms &amp; conditions</a> &middot;
+    <a href="mailto:luxagrid@yahoo.com">luxagrid@yahoo.com</a></footer>
 </main>
 </body>
 </html>
